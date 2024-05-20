@@ -51,7 +51,7 @@ class ModelApi:
     def model_specific_model_download(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> Model:  # noqa: E501
         """/model/{model}/download [POST]  # noqa: E501
 
-        This will download a specific model onto your local machine.  # noqa: E501
+        Downloads a specific model to your local machine.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -81,7 +81,7 @@ class ModelApi:
     def model_specific_model_download_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/model/{model}/download [POST]  # noqa: E501
 
-        This will download a specific model onto your local machine.  # noqa: E501
+        Downloads a specific model to your local machine.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -146,7 +146,7 @@ class ModelApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -161,7 +161,7 @@ class ModelApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -192,7 +192,7 @@ class ModelApi:
     def model_specific_model_download_cancel(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> Model:  # noqa: E501
         """/model/{model}/download/cancel [POST]  # noqa: E501
 
-        This will cancel a specific model download in progress.  # noqa: E501
+        Cancels a specific model download that is currently in progress.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -222,7 +222,7 @@ class ModelApi:
     def model_specific_model_download_cancel_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/model/{model}/download/cancel [POST]  # noqa: E501
 
-        This will cancel a specific model download in progress.  # noqa: E501
+        Cancels a specific model download that is currently in progress.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -287,7 +287,7 @@ class ModelApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -302,7 +302,7 @@ class ModelApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -333,7 +333,7 @@ class ModelApi:
     def model_specific_model_download_progress(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ModelDownloadProgress:  # noqa: E501
         """/model/{model}/download/progress [WS]  # noqa: E501
 
-        This is a Websocket Connection, to get the progress of the downloading of a specific model.  # noqa: E501
+        This is a WebSocket connection that provides real-time updates on the download progress of a specific model.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -363,7 +363,7 @@ class ModelApi:
     def model_specific_model_download_progress_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/model/{model}/download/progress [WS]  # noqa: E501
 
-        This is a Websocket Connection, to get the progress of the downloading of a specific model.  # noqa: E501
+        This is a WebSocket connection that provides real-time updates on the download progress of a specific model.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -428,7 +428,7 @@ class ModelApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -443,7 +443,7 @@ class ModelApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -474,7 +474,7 @@ class ModelApi:
     def model_specific_model_load(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> Model:  # noqa: E501
         """/model/{model}/load [POST]  # noqa: E501
 
-        This will load an already downloaded model into memory. This is different that downloading becuase downloading the entire model onto your machine, load will load the downloaded model into memory.  # noqa: E501
+        Loads a previously downloaded model into memory. It differs from downloading, as downloading involves transferring the entire model to your machine, while loading simply loads the model into memory.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -504,7 +504,7 @@ class ModelApi:
     def model_specific_model_load_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/model/{model}/load [POST]  # noqa: E501
 
-        This will load an already downloaded model into memory. This is different that downloading becuase downloading the entire model onto your machine, load will load the downloaded model into memory.  # noqa: E501
+        Loads a previously downloaded model into memory. It differs from downloading, as downloading involves transferring the entire model to your machine, while loading simply loads the model into memory.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -569,7 +569,7 @@ class ModelApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -584,7 +584,7 @@ class ModelApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -615,7 +615,7 @@ class ModelApi:
     def model_specific_model_unload(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> Model:  # noqa: E501
         """/model/{model}/unload [POST]  # noqa: E501
 
-        This will unload an already loaded model from memory. This will free up the ram that this model is currently consuming.  # noqa: E501
+        Unloads a previously loaded model from memory and effectively frees up the RAM consumed by the model.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -645,7 +645,7 @@ class ModelApi:
     def model_specific_model_unload_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/model/{model}/unload [POST]  # noqa: E501
 
-        This will unload an already loaded model from memory. This will free up the ram that this model is currently consuming.  # noqa: E501
+        Unloads a previously loaded model from memory and effectively frees up the RAM consumed by the model.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -710,7 +710,7 @@ class ModelApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -725,7 +725,7 @@ class ModelApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -756,7 +756,7 @@ class ModelApi:
     def model_update(self, model : Optional[Model] = None, **kwargs) -> Model:  # noqa: E501
         """/model/update [POST]  # noqa: E501
 
-        This will update Machinelearning Model, this is only available for \"custom:true\" models.  # noqa: E501
+        Updates a machine learning model. This functionality is exclusively available for models with the 'custom:true' setting.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -786,7 +786,7 @@ class ModelApi:
     def model_update_with_http_info(self, model : Optional[Model] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/model/update [POST]  # noqa: E501
 
-        This will update Machinelearning Model, this is only available for \"custom:true\" models.  # noqa: E501
+        Updates a machine learning model. This functionality is exclusively available for models with the 'custom:true' setting.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -866,7 +866,7 @@ class ModelApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -904,7 +904,7 @@ class ModelApi:
     def models_specific_model_snapshot(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> Model:  # noqa: E501
         """/model/{model} [GET]  # noqa: E501
 
-          # noqa: E501
+        Retrieves a specific ML model.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -934,7 +934,7 @@ class ModelApi:
     def models_specific_model_snapshot_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/model/{model} [GET]  # noqa: E501
 
-          # noqa: E501
+        Retrieves a specific ML model.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -999,7 +999,7 @@ class ModelApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -1014,7 +1014,7 @@ class ModelApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501

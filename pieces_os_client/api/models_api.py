@@ -54,7 +54,7 @@ class ModelsApi:
     def models_create_new_model(self, seeded_model : Optional[SeededModel] = None, **kwargs) -> Model:  # noqa: E501
         """/models/create [POST]  # noqa: E501
 
-        This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.  # noqa: E501
+        Creates a machine learning model. By default, all models created through this endpoint will have the 'custom' attribute set to true. Additionally, the endpoint ensures that no duplicate models exist before creating a new one.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -84,7 +84,7 @@ class ModelsApi:
     def models_create_new_model_with_http_info(self, seeded_model : Optional[SeededModel] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/models/create [POST]  # noqa: E501
 
-        This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.  # noqa: E501
+        Creates a machine learning model. By default, all models created through this endpoint will have the 'custom' attribute set to true. Additionally, the endpoint ensures that no duplicate models exist before creating a new one.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -164,7 +164,7 @@ class ModelsApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -202,7 +202,7 @@ class ModelsApi:
     def models_delete_specific_model(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> None:  # noqa: E501
         """/models/{model}/delete [POST]  # noqa: E501
 
-        This will delete a model, This is only available for custom: true models.  # noqa: E501
+        Deletes a specific model. It is exclusively available for custom models with the 'custom: true' attribute.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -232,7 +232,7 @@ class ModelsApi:
     def models_delete_specific_model_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], **kwargs) -> ApiResponse:  # noqa: E501
         """/models/{model}/delete [POST]  # noqa: E501
 
-        This will delete a model, This is only available for custom: true models.  # noqa: E501
+        Deletes a specific model. It is exclusively available for custom models with the 'custom: true' attribute.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -297,7 +297,7 @@ class ModelsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -312,7 +312,7 @@ class ModelsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -340,7 +340,7 @@ class ModelsApi:
     def models_delete_specific_model_cache(self, model : Annotated[StrictStr, Field(..., description="model id")], model_delete_cache_input : Optional[ModelDeleteCacheInput] = None, **kwargs) -> ModelDeleteCacheOutput:  # noqa: E501
         """/models/{model}/delete/cache [POST]  # noqa: E501
 
-        This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.  # noqa: E501
+        Deletes the data associated with a specific model, such as assets or libraries downloaded specifically for this model.   Note: This functionality is currently only available for LLM models.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -372,7 +372,7 @@ class ModelsApi:
     def models_delete_specific_model_cache_with_http_info(self, model : Annotated[StrictStr, Field(..., description="model id")], model_delete_cache_input : Optional[ModelDeleteCacheInput] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/models/{model}/delete/cache [POST]  # noqa: E501
 
-        This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.  # noqa: E501
+        Deletes the data associated with a specific model, such as assets or libraries downloaded specifically for this model.   Note: This functionality is currently only available for LLM models.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -440,7 +440,7 @@ class ModelsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['model']:
+        if _params['model'] is not None:
             _path_params['model'] = _params['model']
 
 
@@ -458,7 +458,7 @@ class ModelsApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -598,7 +598,7 @@ class ModelsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -629,7 +629,7 @@ class ModelsApi:
     def unload_models(self, **kwargs) -> None:  # noqa: E501
         """/models/unload [POST]  # noqa: E501
 
-        This will unload all of the ml models.(that are unloadable)  # noqa: E501
+        Unloads all available machine learning models that are unloadable.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -657,7 +657,7 @@ class ModelsApi:
     def unload_models_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/models/unload [POST]  # noqa: E501
 
-        This will unload all of the ml models.(that are unloadable)  # noqa: E501
+        Unloads all available machine learning models that are unloadable.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -731,7 +731,7 @@ class ModelsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501

@@ -143,7 +143,7 @@ class RelationshipApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['relationship']:
+        if _params['relationship'] is not None:
             _path_params['relationship'] = _params['relationship']
 
 

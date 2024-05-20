@@ -23,6 +23,7 @@ from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
 from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
 from pieces_os_client.models.qgpt_conversation import QGPTConversation
+from pieces_os_client.models.qgpt_prompt_pipeline import QGPTPromptPipeline
 
 class QGPTRepromptInput(BaseModel):
     """
@@ -33,7 +34,8 @@ class QGPTRepromptInput(BaseModel):
     conversation: QGPTConversation = Field(...)
     application: Optional[StrictStr] = Field(None, description="optional application id")
     model: Optional[StrictStr] = Field(None, description="optional model id")
-    __properties = ["schema", "query", "conversation", "application", "model"]
+    pipeline: Optional[QGPTPromptPipeline] = None
+    __properties = ["schema", "query", "conversation", "application", "model", "pipeline"]
 
     class Config:
         """Pydantic configuration"""
@@ -65,6 +67,9 @@ class QGPTRepromptInput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of conversation
         if self.conversation:
             _dict['conversation'] = self.conversation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pipeline
+        if self.pipeline:
+            _dict['pipeline'] = self.pipeline.to_dict()
         return _dict
 
     @classmethod
@@ -81,7 +86,8 @@ class QGPTRepromptInput(BaseModel):
             "query": obj.get("query"),
             "conversation": QGPTConversation.from_dict(obj.get("conversation")) if obj.get("conversation") is not None else None,
             "application": obj.get("application"),
-            "model": obj.get("model")
+            "model": obj.get("model"),
+            "pipeline": QGPTPromptPipeline.from_dict(obj.get("pipeline")) if obj.get("pipeline") is not None else None
         })
         return _obj
 

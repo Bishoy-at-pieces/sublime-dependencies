@@ -718,13 +718,13 @@ class PKCEApi:
         # process the form parameters
         _form_params = []
         _files = {}
-        if _params['var_schema']:
+        if _params['var_schema'] is not None:
             _form_params.append(('schema', _params['var_schema']))
 
-        if _params['code']:
+        if _params['code'] is not None:
             _form_params.append(('code', _params['code']))
 
-        if _params['state']:
+        if _params['state'] is not None:
             _form_params.append(('state', _params['state']))
 
         # process the body parameter

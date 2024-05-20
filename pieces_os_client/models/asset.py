@@ -38,6 +38,7 @@ from pieces_os_client.models.sensitives import Sensitives
 from pieces_os_client.models.shares import Shares
 from pieces_os_client.models.tags import Tags
 from pieces_os_client.models.websites import Websites
+from pieces_os_client.models.workstream_summaries import WorkstreamSummaries
 
 class Asset(BaseModel):
     """
@@ -71,7 +72,9 @@ class Asset(BaseModel):
     hints: Optional[Hints] = None
     anchors: Optional[Anchors] = None
     conversations: Optional[Conversations] = None
-    __properties = ["schema", "id", "name", "creator", "created", "updated", "synced", "deleted", "formats", "preview", "original", "shares", "mechanism", "websites", "interacted", "tags", "sensitives", "persons", "curated", "discovered", "activities", "score", "favorited", "pseudo", "annotations", "hints", "anchors", "conversations"]
+    summaries: Optional[WorkstreamSummaries] = None
+    demo: Optional[StrictBool] = Field(None, description="This will let us know if this asset was generated as a 'demo' snippet")
+    __properties = ["schema", "id", "name", "creator", "created", "updated", "synced", "deleted", "formats", "preview", "original", "shares", "mechanism", "websites", "interacted", "tags", "sensitives", "persons", "curated", "discovered", "activities", "score", "favorited", "pseudo", "annotations", "hints", "anchors", "conversations", "summaries", "demo"]
 
     class Config:
         """Pydantic configuration"""
@@ -157,6 +160,9 @@ class Asset(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of conversations
         if self.conversations:
             _dict['conversations'] = self.conversations.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of summaries
+        if self.summaries:
+            _dict['summaries'] = self.summaries.to_dict()
         return _dict
 
     @classmethod
@@ -196,7 +202,9 @@ class Asset(BaseModel):
             "annotations": Annotations.from_dict(obj.get("annotations")) if obj.get("annotations") is not None else None,
             "hints": Hints.from_dict(obj.get("hints")) if obj.get("hints") is not None else None,
             "anchors": Anchors.from_dict(obj.get("anchors")) if obj.get("anchors") is not None else None,
-            "conversations": Conversations.from_dict(obj.get("conversations")) if obj.get("conversations") is not None else None
+            "conversations": Conversations.from_dict(obj.get("conversations")) if obj.get("conversations") is not None else None,
+            "summaries": WorkstreamSummaries.from_dict(obj.get("summaries")) if obj.get("summaries") is not None else None,
+            "demo": obj.get("demo")
         })
         return _obj
 

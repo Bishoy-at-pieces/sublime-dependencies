@@ -21,8 +21,8 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel, Field
+from pieces_os_client.models.application import Application
 from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
-from pieces_os_client.models.tracked_application import TrackedApplication
 from pieces_os_client.models.tracked_user_profile import TrackedUserProfile
 
 class TrackedApplicationInstall(BaseModel):
@@ -30,7 +30,7 @@ class TrackedApplicationInstall(BaseModel):
     A model that allows for us to specifically track Application Installs & Related Data  # noqa: E501
     """
     var_schema: Optional[EmbeddedModelSchema] = Field(None, alias="schema")
-    application: TrackedApplication = Field(...)
+    application: Application = Field(...)
     user: Optional[TrackedUserProfile] = None
     __properties = ["schema", "application", "user"]
 
@@ -80,7 +80,7 @@ class TrackedApplicationInstall(BaseModel):
 
         _obj = TrackedApplicationInstall.parse_obj({
             "var_schema": EmbeddedModelSchema.from_dict(obj.get("schema")) if obj.get("schema") is not None else None,
-            "application": TrackedApplication.from_dict(obj.get("application")) if obj.get("application") is not None else None,
+            "application": Application.from_dict(obj.get("application")) if obj.get("application") is not None else None,
             "user": TrackedUserProfile.from_dict(obj.get("user")) if obj.get("user") is not None else None
         })
         return _obj

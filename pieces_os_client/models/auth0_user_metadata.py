@@ -21,6 +21,7 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
+from pieces_os_client.models.anonymous_temporal_range import AnonymousTemporalRange
 from pieces_os_client.models.auth0_open_ai_user_metadata import Auth0OpenAIUserMetadata
 from pieces_os_client.models.auth0_user_allocation_metadata import Auth0UserAllocationMetadata
 from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
@@ -36,7 +37,8 @@ class Auth0UserMetadata(BaseModel):
     vanityname: Optional[StrictStr] = Field(None, description="this is the vanityname of the user.(set from their custom CNAME dns record.) ie mark.pieces.cloud where \"mark\" is the vanityname.")
     allocation: Optional[Auth0UserAllocationMetadata] = None
     open_ai: Optional[Auth0OpenAIUserMetadata] = Field(None, alias="open_AI")
-    __properties = ["schema", "global_id", "cloud_key", "stripe_customer_id", "vanityname", "allocation", "open_AI"]
+    beta: Optional[AnonymousTemporalRange] = None
+    __properties = ["schema", "global_id", "cloud_key", "stripe_customer_id", "vanityname", "allocation", "open_AI", "beta"]
 
     class Config:
         """Pydantic configuration"""
@@ -71,6 +73,9 @@ class Auth0UserMetadata(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of open_ai
         if self.open_ai:
             _dict['open_AI'] = self.open_ai.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of beta
+        if self.beta:
+            _dict['beta'] = self.beta.to_dict()
         return _dict
 
     @classmethod
@@ -89,7 +94,8 @@ class Auth0UserMetadata(BaseModel):
             "stripe_customer_id": obj.get("stripe_customer_id"),
             "vanityname": obj.get("vanityname"),
             "allocation": Auth0UserAllocationMetadata.from_dict(obj.get("allocation")) if obj.get("allocation") is not None else None,
-            "open_ai": Auth0OpenAIUserMetadata.from_dict(obj.get("open_AI")) if obj.get("open_AI") is not None else None
+            "open_ai": Auth0OpenAIUserMetadata.from_dict(obj.get("open_AI")) if obj.get("open_AI") is not None else None,
+            "beta": AnonymousTemporalRange.from_dict(obj.get("beta")) if obj.get("beta") is not None else None
         })
         return _obj
 

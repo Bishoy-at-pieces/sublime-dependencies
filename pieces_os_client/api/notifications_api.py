@@ -47,7 +47,7 @@ class NotificationsApi:
     def send_local_notification(self, notification : Optional[Notification] = None, **kwargs) -> None:  # noqa: E501
         """Send notification  # noqa: E501
 
-        This one is to universaly send notifications from any member of the system  # noqa: E501
+        Retrieves a snapshot of all available models.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -77,7 +77,7 @@ class NotificationsApi:
     def send_local_notification_with_http_info(self, notification : Optional[Notification] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Send notification  # noqa: E501
 
-        This one is to universaly send notifications from any member of the system  # noqa: E501
+        Retrieves a snapshot of all available models.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 

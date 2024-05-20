@@ -291,7 +291,7 @@ class FormatsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['format']:
+        if _params['format'] is not None:
             _path_params['format'] = _params['format']
 
 

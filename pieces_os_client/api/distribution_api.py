@@ -160,7 +160,7 @@ class DistributionApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -293,7 +293,7 @@ class DistributionApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['distribution']:
+        if _params['distribution'] is not None:
             _path_params['distribution'] = _params['distribution']
 
 
@@ -308,7 +308,7 @@ class DistributionApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501

@@ -44,7 +44,7 @@ class WellKnownApi:
     def get_well_known_health(self, **kwargs) -> str:  # noqa: E501
         """/.well-known/health [GET]  # noqa: E501
 
-        This will get the health of the server.  # noqa: E501
+        Retrieves the health status of the server.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -72,7 +72,7 @@ class WellKnownApi:
     def get_well_known_health_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/.well-known/health [GET]  # noqa: E501
 
-        This will get the health of the server.  # noqa: E501
+        Retrieves the health status of the server.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -146,7 +146,7 @@ class WellKnownApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -176,7 +176,7 @@ class WellKnownApi:
     def get_well_known_version(self, **kwargs) -> str:  # noqa: E501
         """/.well-known/version [Get]  # noqa: E501
 
-        This will get the version of the server. This will return a string of current version.  # noqa: E501
+        Retrieves the version of the server. It returns a string representing the current version.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -204,7 +204,7 @@ class WellKnownApi:
     def get_well_known_version_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/.well-known/version [Get]  # noqa: E501
 
-        This will get the version of the server. This will return a string of current version.  # noqa: E501
+        Retrieves the version of the server. It returns a string representing the current version.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -278,7 +278,7 @@ class WellKnownApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501

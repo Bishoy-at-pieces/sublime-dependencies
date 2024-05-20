@@ -151,7 +151,7 @@ class SensitiveApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['sensitive']:
+        if _params['sensitive'] is not None:
             _path_params['sensitive'] = _params['sensitive']
 
 
@@ -169,7 +169,7 @@ class SensitiveApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -299,7 +299,7 @@ class SensitiveApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['sensitive']:
+        if _params['sensitive'] is not None:
             _path_params['sensitive'] = _params['sensitive']
 
 
@@ -314,7 +314,7 @@ class SensitiveApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -455,7 +455,7 @@ class SensitiveApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',

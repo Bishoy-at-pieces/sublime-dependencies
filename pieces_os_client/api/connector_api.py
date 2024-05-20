@@ -56,7 +56,7 @@ class ConnectorApi:
     def connect(self, seeded_connector_connection : Optional[SeededConnectorConnection] = None, **kwargs) -> Context:  # noqa: E501
         """/connect [POST]  # noqa: E501
 
-        An endpoint which abstracts a bootup/connection for a specific context  # noqa: E501
+        Abstracts a bootup/connection for a specific context.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -86,7 +86,7 @@ class ConnectorApi:
     def connect_with_http_info(self, seeded_connector_connection : Optional[SeededConnectorConnection] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/connect [POST]  # noqa: E501
 
-        An endpoint which abstracts a bootup/connection for a specific context  # noqa: E501
+        Abstracts a bootup/connection for a specific context.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -166,7 +166,7 @@ class ConnectorApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -204,7 +204,7 @@ class ConnectorApi:
     def intention(self, application : StrictStr, seeded_connector_asset : Optional[SeededConnectorAsset] = None, **kwargs) -> str:  # noqa: E501
         """/{application}/intention [POST]  # noqa: E501
 
-        This can be used to send a SeededAsset over that you may use to compair in the future.  # noqa: E501
+        Allows you to send a SeededAsset for future comparison.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -236,7 +236,7 @@ class ConnectorApi:
     def intention_with_http_info(self, application : StrictStr, seeded_connector_asset : Optional[SeededConnectorAsset] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/{application}/intention [POST]  # noqa: E501
 
-        This can be used to send a SeededAsset over that you may use to compair in the future.  # noqa: E501
+        Allows you to send a SeededAsset for future comparison.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -304,7 +304,7 @@ class ConnectorApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['application']:
+        if _params['application'] is not None:
             _path_params['application'] = _params['application']
 
 
@@ -322,7 +322,7 @@ class ConnectorApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -362,7 +362,7 @@ class ConnectorApi:
     def onboarded(self, application : Annotated[StrictStr, Field(..., description="This is a uuid that represents an application")], body : Annotated[Optional[StrictBool], Field(description="Whether or not that application has been onboarded.")] = None, **kwargs) -> str:  # noqa: E501
         """/onboarded [POST]  # noqa: E501
 
-        A consolidation endpoint to handle the updating of an onboarding process.  # noqa: E501
+        A central endpoint to manage updates to the onboarding process.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -394,7 +394,7 @@ class ConnectorApi:
     def onboarded_with_http_info(self, application : Annotated[StrictStr, Field(..., description="This is a uuid that represents an application")], body : Annotated[Optional[StrictBool], Field(description="Whether or not that application has been onboarded.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/onboarded [POST]  # noqa: E501
 
-        A consolidation endpoint to handle the updating of an onboarding process.  # noqa: E501
+        A central endpoint to manage updates to the onboarding process.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -462,7 +462,7 @@ class ConnectorApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['application']:
+        if _params['application'] is not None:
             _path_params['application'] = _params['application']
 
 
@@ -480,7 +480,7 @@ class ConnectorApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -519,7 +519,7 @@ class ConnectorApi:
     def react(self, application : StrictStr, reaction : Annotated[Optional[Reaction], Field(description="** This body will need to be modified.")] = None, **kwargs) -> str:  # noqa: E501
         """/{application}/reaction [POST]  # noqa: E501
 
-        This will react to the response returned from the /suggest endpoint.   # noqa: E501
+        This will respond to the output generated by the /suggest endpoint.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -551,7 +551,7 @@ class ConnectorApi:
     def react_with_http_info(self, application : StrictStr, reaction : Annotated[Optional[Reaction], Field(description="** This body will need to be modified.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/{application}/reaction [POST]  # noqa: E501
 
-        This will react to the response returned from the /suggest endpoint.   # noqa: E501
+        This will respond to the output generated by the /suggest endpoint.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -619,7 +619,7 @@ class ConnectorApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['application']:
+        if _params['application'] is not None:
             _path_params['application'] = _params['application']
 
 
@@ -637,7 +637,7 @@ class ConnectorApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -676,7 +676,7 @@ class ConnectorApi:
     def suggest(self, application : StrictStr, seeded_connector_creation : Annotated[Optional[SeededConnectorCreation], Field(description="This is the Snippet that we will compare to all the saved assets to determine what we want to do with it!")] = None, **kwargs) -> Suggestion:  # noqa: E501
         """/{application}/suggestion [POST]  # noqa: E501
 
-        This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.  # noqa: E501
+        Invoked whenever a code snippet is copied from an integration. For instance, if a JetBrains user copies code, this endpoint can be called to assess whether to suggest reusing a piece (if reuse is true, the endpoint provides assets that the user may consider using), saving the code snippet, or taking no action.   **Note: This endpoint could potentially accept a SeededFormat for the request body if required.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -708,7 +708,7 @@ class ConnectorApi:
     def suggest_with_http_info(self, application : StrictStr, seeded_connector_creation : Annotated[Optional[SeededConnectorCreation], Field(description="This is the Snippet that we will compare to all the saved assets to determine what we want to do with it!")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/{application}/suggestion [POST]  # noqa: E501
 
-        This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.  # noqa: E501
+        Invoked whenever a code snippet is copied from an integration. For instance, if a JetBrains user copies code, this endpoint can be called to assess whether to suggest reusing a piece (if reuse is true, the endpoint provides assets that the user may consider using), saving the code snippet, or taking no action.   **Note: This endpoint could potentially accept a SeededFormat for the request body if required.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -776,7 +776,7 @@ class ConnectorApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['application']:
+        if _params['application'] is not None:
             _path_params['application'] = _params['application']
 
 
@@ -794,7 +794,7 @@ class ConnectorApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -833,7 +833,7 @@ class ConnectorApi:
     def track(self, application : Annotated[StrictStr, Field(..., description="This is a uuid that represents an application")], seeded_connector_tracking : Annotated[Optional[SeededConnectorTracking], Field(description="The body is able to take in several properties ")] = None, **kwargs) -> str:  # noqa: E501
         """/{application}/track [POST]  # noqa: E501
 
-        This is an endpoint specifically to abstract the work of packaging for segment on a per-context basis  # noqa: E501
+        Abstracts the process of packaging segments on a per-context basis.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -865,7 +865,7 @@ class ConnectorApi:
     def track_with_http_info(self, application : Annotated[StrictStr, Field(..., description="This is a uuid that represents an application")], seeded_connector_tracking : Annotated[Optional[SeededConnectorTracking], Field(description="The body is able to take in several properties ")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/{application}/track [POST]  # noqa: E501
 
-        This is an endpoint specifically to abstract the work of packaging for segment on a per-context basis  # noqa: E501
+        Abstracts the process of packaging segments on a per-context basis.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -933,7 +933,7 @@ class ConnectorApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['application']:
+        if _params['application'] is not None:
             _path_params['application'] = _params['application']
 
 
@@ -951,7 +951,7 @@ class ConnectorApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',

@@ -27,7 +27,7 @@ from pieces_os_client.models.model import Model
 
 class CodeAnalysis(BaseModel):
     """
-    This is the ML Analysis object Specific to code.  prediction and similarity are custom types {[string]: number}. ** please dont not modify **  # noqa: E501
+    This is the ML Analysis object Specific to code.  prediction and similarity are custom types. ** please dont not modify **  # noqa: E501
     """
     var_schema: Optional[EmbeddedModelSchema] = Field(None, alias="schema")
     tokenized: Optional[conlist(StrictStr)] = None

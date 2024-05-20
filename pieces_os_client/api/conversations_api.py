@@ -54,7 +54,7 @@ class ConversationsApi:
     def conversations_create_from_asset(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], **kwargs) -> ConversationsCreateFromAssetOutput:  # noqa: E501
         """/conversations/create/from_asset/{asset} [POST]  # noqa: E501
 
-        This will create a conversation from an asset, This will create a conversation and an initial message for the conversation(w/ a summary of the asset that is being used as grounding context).  # noqa: E501
+        Creates a conversation based on an asset. It initiates a conversation and generates an initial message that includes a summary of the asset used as contextual grounding.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -84,7 +84,7 @@ class ConversationsApi:
     def conversations_create_from_asset_with_http_info(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], **kwargs) -> ApiResponse:  # noqa: E501
         """/conversations/create/from_asset/{asset} [POST]  # noqa: E501
 
-        This will create a conversation from an asset, This will create a conversation and an initial message for the conversation(w/ a summary of the asset that is being used as grounding context).  # noqa: E501
+        Creates a conversation based on an asset. It initiates a conversation and generates an initial message that includes a summary of the asset used as contextual grounding.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -149,7 +149,7 @@ class ConversationsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['asset']:
+        if _params['asset'] is not None:
             _path_params['asset'] = _params['asset']
 
 
@@ -164,7 +164,7 @@ class ConversationsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -195,7 +195,7 @@ class ConversationsApi:
     def conversations_create_specific_conversation(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, seeded_conversation : Optional[SeededConversation] = None, **kwargs) -> Conversation:  # noqa: E501
         """/conversations/create [POST]  # noqa: E501
 
-        This will create a specific conversation.  # noqa: E501
+        Creates a specific conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -227,7 +227,7 @@ class ConversationsApi:
     def conversations_create_specific_conversation_with_http_info(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, seeded_conversation : Optional[SeededConversation] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/conversations/create [POST]  # noqa: E501
 
-        This will create a specific conversation.  # noqa: E501
+        Creates a specific conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -313,7 +313,7 @@ class ConversationsApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -351,7 +351,7 @@ class ConversationsApi:
     def conversations_delete_specific_conversation(self, conversation : Annotated[StrictStr, Field(..., description="This is the uuid of a conversation.")], **kwargs) -> None:  # noqa: E501
         """/conversations/{conversation}/delete [POST]  # noqa: E501
 
-        This will delete a specific Conversation.  # noqa: E501
+        Deletes a specific conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -381,7 +381,7 @@ class ConversationsApi:
     def conversations_delete_specific_conversation_with_http_info(self, conversation : Annotated[StrictStr, Field(..., description="This is the uuid of a conversation.")], **kwargs) -> ApiResponse:  # noqa: E501
         """/conversations/{conversation}/delete [POST]  # noqa: E501
 
-        This will delete a specific Conversation.  # noqa: E501
+        Deletes a specific conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -446,7 +446,7 @@ class ConversationsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['conversation']:
+        if _params['conversation'] is not None:
             _path_params['conversation'] = _params['conversation']
 
 
@@ -461,7 +461,7 @@ class ConversationsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -489,7 +489,7 @@ class ConversationsApi:
     def conversations_identifiers_snapshot(self, **kwargs) -> FlattenedConversations:  # noqa: E501
         """/conversations/identifiers [GET]  # noqa: E501
 
-        This will get all the uuids of a Conversation.  # noqa: E501
+        Retrieves all the UUIDs associated with a Conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -517,7 +517,7 @@ class ConversationsApi:
     def conversations_identifiers_snapshot_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/conversations/identifiers [GET]  # noqa: E501
 
-        This will get all the uuids of a Conversation.  # noqa: E501
+        Retrieves all the UUIDs associated with a Conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -591,7 +591,7 @@ class ConversationsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -622,7 +622,7 @@ class ConversationsApi:
     def conversations_snapshot(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, **kwargs) -> Conversations:  # noqa: E501
         """/conversations [GET]  # noqa: E501
 
-        This will return a snapshot of a specific conversation  # noqa: E501
+        Retrieves a snapshot of a specific conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -652,7 +652,7 @@ class ConversationsApi:
     def conversations_snapshot_with_http_info(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/conversations [GET]  # noqa: E501
 
-        This will return a snapshot of a specific conversation  # noqa: E501
+        Retrieves a snapshot of a specific conversation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -732,7 +732,7 @@ class ConversationsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -761,9 +761,9 @@ class ConversationsApi:
 
     @validate_arguments
     def conversations_stream_identifiers(self, **kwargs) -> None:  # noqa: E501
-        """/conversations/stream/identifiers [STREAMED]  # noqa: E501
+        """/conversations/stream/identifiers [WS]  # noqa: E501
 
-        This is a stream for the conversation identifiers. will return StreamedIdentifiers.  # noqa: E501
+        Provides a WebSocket connection that emits changes to your conversation identifiers (UUIDs).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -789,9 +789,9 @@ class ConversationsApi:
 
     @validate_arguments
     def conversations_stream_identifiers_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """/conversations/stream/identifiers [STREAMED]  # noqa: E501
+        """/conversations/stream/identifiers [WS]  # noqa: E501
 
-        This is a stream for the conversation identifiers. will return StreamedIdentifiers.  # noqa: E501
+        Provides a WebSocket connection that emits changes to your conversation identifiers (UUIDs).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 

@@ -45,7 +45,7 @@ class RelationshipsApi:
     def relationships_snapshot(self, **kwargs) -> Relationships:  # noqa: E501
         """/relationships [GET]  # noqa: E501
 
-        This will reurn all of the relationships that exists within your pieces db.  # noqa: E501
+        This will return all of the relationships that exists within your pieces db.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -73,7 +73,7 @@ class RelationshipsApi:
     def relationships_snapshot_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/relationships [GET]  # noqa: E501
 
-        This will reurn all of the relationships that exists within your pieces db.  # noqa: E501
+        This will return all of the relationships that exists within your pieces db.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -147,7 +147,7 @@ class RelationshipsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501

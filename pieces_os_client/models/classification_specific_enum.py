@@ -522,6 +522,14 @@ class ClassificationSpecificEnum(str, Enum):
     FS = 'fs'
     FSI = 'fsi'
     FSX = 'fsx'
+    TF = 'tf'
+    VBA = 'vba'
+    SVELTE = 'svelte'
+    VUE = 'vue'
+    SCSS = 'scss'
+    FEATURE = 'feature'
+    INI = 'ini'
+    FTL = 'ftl'
 
     @classmethod
     def from_json(cls, json_str: str) -> ClassificationSpecificEnum:

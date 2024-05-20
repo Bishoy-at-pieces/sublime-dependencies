@@ -35,6 +35,7 @@ from pieces_os_client.models.searched_assets import SearchedAssets
 from pieces_os_client.models.seed import Seed
 from pieces_os_client.models.seeded_assets_recommendation import SeededAssetsRecommendation
 from pieces_os_client.models.streamed_identifiers import StreamedIdentifiers
+from pieces_os_client.models.workstream_suggestions import WorkstreamSuggestions
 
 from pieces_os_client.api_client import ApiClient
 from pieces_os_client.api_response import ApiResponse
@@ -60,7 +61,7 @@ class AssetsApi:
     def assets_create_new_asset(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, seed : Optional[Seed] = None, **kwargs) -> Asset:  # noqa: E501
         """/assets/create [POST] Scoped to Asset  # noqa: E501
 
-        This endpoint will accept a seeded (a structure that comes before an asset, will be used in creation) asset to be uploaded to pieces. Response here will be an Asset that was create!  # noqa: E501
+        Accepts a seeded (a structure that comes before an asset, and will be used in creation) asset and uploads it to Pieces. The response will be the newly created Asset object.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -92,7 +93,7 @@ class AssetsApi:
     def assets_create_new_asset_with_http_info(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, seed : Optional[Seed] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/create [POST] Scoped to Asset  # noqa: E501
 
-        This endpoint will accept a seeded (a structure that comes before an asset, will be used in creation) asset to be uploaded to pieces. Response here will be an Asset that was create!  # noqa: E501
+        Accepts a seeded (a structure that comes before an asset, and will be used in creation) asset and uploads it to Pieces. The response will be the newly created Asset object.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -213,9 +214,9 @@ class AssetsApi:
 
     @validate_arguments
     def assets_delete_asset(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], **kwargs) -> str:  # noqa: E501
-        """/assets/delete [POST] Scoped to Asset  # noqa: E501
+        """/assets/{asset}/delete [POST] Scoped to Asset  # noqa: E501
 
-        This endpoint will just take a uid to delete out of the assets table, will return the uid that was deleted.  # noqa: E501
+        Deletes a specific asset from the system by providing its unique identifier (UID). Upon successful deletion, it returns the UID of the deleted asset.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -243,9 +244,9 @@ class AssetsApi:
 
     @validate_arguments
     def assets_delete_asset_with_http_info(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], **kwargs) -> ApiResponse:  # noqa: E501
-        """/assets/delete [POST] Scoped to Asset  # noqa: E501
+        """/assets/{asset}/delete [POST] Scoped to Asset  # noqa: E501
 
-        This endpoint will just take a uid to delete out of the assets table, will return the uid that was deleted.  # noqa: E501
+        Deletes a specific asset from the system by providing its unique identifier (UID). Upon successful deletion, it returns the UID of the deleted asset.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -310,7 +311,7 @@ class AssetsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['asset']:
+        if _params['asset'] is not None:
             _path_params['asset'] = _params['asset']
 
 
@@ -325,7 +326,7 @@ class AssetsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -355,7 +356,7 @@ class AssetsApi:
     def assets_draft(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, seed : Optional[Seed] = None, **kwargs) -> Seed:  # noqa: E501
         """/assets/draft [POST]  # noqa: E501
 
-        This is an endpoint that will enable a developer to pass in a Seed and get a seed with preprocessed information on that seed out of this endpoint, nothing is persisted, this is a strict input/output endpoint. and return a drafted asset (seed with some initial information).  for images, we will just return the seed that was passed to us. a TODO for v2 would eb to add preprocessing for images as well.  # noqa: E501
+        Allows developers to input a Seed and receive a drafted asset with preprocessed information. No data is persisted; this is solely an input/output endpoint.  For images, it returns the original Seed.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -387,7 +388,7 @@ class AssetsApi:
     def assets_draft_with_http_info(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, seed : Optional[Seed] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/draft [POST]  # noqa: E501
 
-        This is an endpoint that will enable a developer to pass in a Seed and get a seed with preprocessed information on that seed out of this endpoint, nothing is persisted, this is a strict input/output endpoint. and return a drafted asset (seed with some initial information).  for images, we will just return the seed that was passed to us. a TODO for v2 would eb to add preprocessing for images as well.  # noqa: E501
+        Allows developers to input a Seed and receive a drafted asset with preprocessed information. No data is persisted; this is solely an input/output endpoint.  For images, it returns the original Seed.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -473,7 +474,7 @@ class AssetsApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -511,7 +512,7 @@ class AssetsApi:
     def assets_get_recommended_assets(self, seeded_assets_recommendation : Annotated[Optional[SeededAssetsRecommendation], Field(description="The body of the request will be an SeededAssetsRecommendation Model with interaction meta data included at body.interactions.iterable and then the corrresponding index-paired body.assets.iterable with a fully populated assets array with fully sub-populated formats.")] = None, **kwargs) -> Assets:  # noqa: E501
         """Your GET endpoint  # noqa: E501
 
-        An endpoint that takes in a SeededAssetsRecommendation Model within it's request body, which requires an object including assets (Assets Model) as well as interactions (InteractedAssets Model) - the resulting will return an Assets Model for use in a UI.  # noqa: E501
+        Expects a SeededAssetsRecommendation Model in the request body, containing assets and interactions. Returns an Assets Model suitable for UI.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -541,7 +542,7 @@ class AssetsApi:
     def assets_get_recommended_assets_with_http_info(self, seeded_assets_recommendation : Annotated[Optional[SeededAssetsRecommendation], Field(description="The body of the request will be an SeededAssetsRecommendation Model with interaction meta data included at body.interactions.iterable and then the corrresponding index-paired body.assets.iterable with a fully populated assets array with fully sub-populated formats.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Your GET endpoint  # noqa: E501
 
-        An endpoint that takes in a SeededAssetsRecommendation Model within it's request body, which requires an object including assets (Assets Model) as well as interactions (InteractedAssets Model) - the resulting will return an Assets Model for use in a UI.  # noqa: E501
+        Expects a SeededAssetsRecommendation Model in the request body, containing assets and interactions. Returns an Assets Model suitable for UI.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -658,7 +659,7 @@ class AssetsApi:
     def assets_get_related_assets(self, assets : Annotated[Optional[Assets], Field(description="The body of the request is an object (Assets Model) with iterable internally.")] = None, **kwargs) -> Assets:  # noqa: E501
         """/assets/related [GET]  # noqa: E501
 
-        Gets one or more related assets when provided one or more input assets. The body will expect the shape of  # noqa: E501
+        Retrieves one or more related assets when provided with one or more input assets.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -688,7 +689,7 @@ class AssetsApi:
     def assets_get_related_assets_with_http_info(self, assets : Annotated[Optional[Assets], Field(description="The body of the request is an object (Assets Model) with iterable internally.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/related [GET]  # noqa: E501
 
-        Gets one or more related assets when provided one or more input assets. The body will expect the shape of  # noqa: E501
+        Retrieves one or more related assets when provided with one or more input assets.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -805,7 +806,7 @@ class AssetsApi:
     def assets_identifiers_snapshot(self, pseudo : Annotated[Optional[StrictBool], Field(description="This is helper boolean that will give you the ability to also include your pseudo assets, we will always default to false.")] = None, **kwargs) -> FlattenedAssets:  # noqa: E501
         """/assets/identifiers [GET]  # noqa: E501
 
-        This will get all of your asset ids  # noqa: E501
+        Retrieves all asset IDs associated with your account.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -835,7 +836,7 @@ class AssetsApi:
     def assets_identifiers_snapshot_with_http_info(self, pseudo : Annotated[Optional[StrictBool], Field(description="This is helper boolean that will give you the ability to also include your pseudo assets, we will always default to false.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/identifiers [GET]  # noqa: E501
 
-        This will get all of your asset ids  # noqa: E501
+        Retrieves all asset IDs associated with your account.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -915,7 +916,7 @@ class AssetsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -946,7 +947,7 @@ class AssetsApi:
     def assets_pseudo_snapshot(self, **kwargs) -> PseudoAssets:  # noqa: E501
         """/assets/pseudo [GET]  # noqa: E501
 
-        This will get a snapshot of ONLY the pseudo Assets included in your Pieces drive.  # noqa: E501
+        Retrieves a snapshot exclusively containing pseudo Assets from your Pieces drive.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -974,7 +975,7 @@ class AssetsApi:
     def assets_pseudo_snapshot_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/pseudo [GET]  # noqa: E501
 
-        This will get a snapshot of ONLY the pseudo Assets included in your Pieces drive.  # noqa: E501
+        Retrieves a snapshot exclusively containing pseudo Assets from your Pieces drive.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1048,7 +1049,7 @@ class AssetsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -1079,7 +1080,7 @@ class AssetsApi:
     def assets_search_assets(self, query : Annotated[Optional[StrictStr], Field(description="This is a string that you can use to search your assets.")] = None, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, searchable_tags : Annotated[Optional[StrictStr], Field(description="This is a comma separated value of tags used for search.")] = None, pseudo : Annotated[Optional[StrictBool], Field(description="This is helper boolean that will give you the ability to also include your pseudo assets, we will always default to false.")] = None, **kwargs) -> SearchedAssets:  # noqa: E501
         """/assets/search?query=string [GET]  # noqa: E501
 
-        This function will search your pieces and will return Assets(the results) based on your query! Eventually** /assets/search?query=string [GET] Scoped to Asset  Currently just send along your query in the body.  Required to pass searchable_tags (csv of tags) or a query string.  if a query is passed we will run through fuzzy search.  if searchable_tags are passed we will run through tag_based_search.  if neither are passed in we will return a 500.  # noqa: E501
+        Performs a search across your pieces and returns Assets (the results) based on your query. Presently, it only requires your query to be sent in the body. It is mandatory to include searchable_tags (comma-separated values of tags) or a query string.  If a query is provided, a fuzzy search will be conducted. If searchable tags are provided, a tag-based search will be executed.  If neither are included, a 500 error will be returned.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1115,7 +1116,7 @@ class AssetsApi:
     def assets_search_assets_with_http_info(self, query : Annotated[Optional[StrictStr], Field(description="This is a string that you can use to search your assets.")] = None, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, searchable_tags : Annotated[Optional[StrictStr], Field(description="This is a comma separated value of tags used for search.")] = None, pseudo : Annotated[Optional[StrictBool], Field(description="This is helper boolean that will give you the ability to also include your pseudo assets, we will always default to false.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/search?query=string [GET]  # noqa: E501
 
-        This function will search your pieces and will return Assets(the results) based on your query! Eventually** /assets/search?query=string [GET] Scoped to Asset  Currently just send along your query in the body.  Required to pass searchable_tags (csv of tags) or a query string.  if a query is passed we will run through fuzzy search.  if searchable_tags are passed we will run through tag_based_search.  if neither are passed in we will return a 500.  # noqa: E501
+        Performs a search across your pieces and returns Assets (the results) based on your query. Presently, it only requires your query to be sent in the body. It is mandatory to include searchable_tags (comma-separated values of tags) or a query string.  If a query is provided, a fuzzy search will be conducted. If searchable tags are provided, a tag-based search will be executed.  If neither are included, a 500 error will be returned.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1213,7 +1214,7 @@ class AssetsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -1244,7 +1245,7 @@ class AssetsApi:
     def assets_search_with_filters(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, pseudo : Annotated[Optional[StrictBool], Field(description="This is helper boolean that will give you the ability to also include your pseudo assets, we will always default to false.")] = None, assets_search_with_filters_input : Optional[AssetsSearchWithFiltersInput] = None, **kwargs) -> AssetsSearchWithFiltersOutput:  # noqa: E501
         """/assets/search [POST]  # noqa: E501
 
-        This function will search your pieces and will return Assets(the results) based on your query! /assets/search [POST] Scoped to Asset  Currently just send along your query in the body.  if a query is passed we will run through fuzzy search.  The Post Body will also accept a search space, being either a list of uuids.(in the future potentially Seeds.) The Post Body will also accept optional filters, which is an iterable of filters all will be AND operations for now.  # noqa: E501
+        Enables searching through your pieces and returns Assets (the results) based on your query.  When sending a query in the request body, fuzzy search is applied.  Additionally, the request body can include a search space, currently as a list of UUIDs (and potentially Seeds in the future). Optional filters can also be included in the request body, represented as an iterable of filters, all of which are combined using AND operations.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1278,7 +1279,7 @@ class AssetsApi:
     def assets_search_with_filters_with_http_info(self, transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, pseudo : Annotated[Optional[StrictBool], Field(description="This is helper boolean that will give you the ability to also include your pseudo assets, we will always default to false.")] = None, assets_search_with_filters_input : Optional[AssetsSearchWithFiltersInput] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/search [POST]  # noqa: E501
 
-        This function will search your pieces and will return Assets(the results) based on your query! /assets/search [POST] Scoped to Asset  Currently just send along your query in the body.  if a query is passed we will run through fuzzy search.  The Post Body will also accept a search space, being either a list of uuids.(in the future potentially Seeds.) The Post Body will also accept optional filters, which is an iterable of filters all will be AND operations for now.  # noqa: E501
+        Enables searching through your pieces and returns Assets (the results) based on your query.  When sending a query in the request body, fuzzy search is applied.  Additionally, the request body can include a search space, currently as a list of UUIDs (and potentially Seeds in the future). Optional filters can also be included in the request body, represented as an iterable of filters, all of which are combined using AND operations.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1370,7 +1371,7 @@ class AssetsApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -1564,7 +1565,7 @@ class AssetsApi:
     def assets_specific_asset_formats_snapshot(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, **kwargs) -> Formats:  # noqa: E501
         """/assets/{asset}/formats [GET] Scoped To Assets  # noqa: E501
 
-        This will query the formats for agiven asset when provided that asset's id.  # noqa: E501
+        Retrieves the available formats for a specific asset identified by its ID  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1596,7 +1597,7 @@ class AssetsApi:
     def assets_specific_asset_formats_snapshot_with_http_info(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/{asset}/formats [GET] Scoped To Assets  # noqa: E501
 
-        This will query the formats for agiven asset when provided that asset's id.  # noqa: E501
+        Retrieves the available formats for a specific asset identified by its ID  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1664,7 +1665,7 @@ class AssetsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['asset']:
+        if _params['asset'] is not None:
             _path_params['asset'] = _params['asset']
 
 
@@ -1712,7 +1713,7 @@ class AssetsApi:
     def assets_specific_asset_snapshot(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, **kwargs) -> Asset:  # noqa: E501
         """/assets/{asset} [GET] Scoped to Assets  # noqa: E501
 
-        This is an endpoint to enable a client to access a specific asset through a provided uuid in the path.  # noqa: E501
+        Allows clients to retrieve details of a specific asset by providing its UUID in the path.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1744,7 +1745,7 @@ class AssetsApi:
     def assets_specific_asset_snapshot_with_http_info(self, asset : Annotated[StrictStr, Field(..., description="The id (uuid) of the asset that you are trying to access.")], transferables : Annotated[Optional[StrictBool], Field(description="This is a boolean that will decided if we are want to return the transferable data (default) or not(performance enhancement)")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/assets/{asset} [GET] Scoped to Assets  # noqa: E501
 
-        This is an endpoint to enable a client to access a specific asset through a provided uuid in the path.  # noqa: E501
+        Allows clients to retrieve details of a specific asset by providing its UUID in the path.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1812,7 +1813,7 @@ class AssetsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['asset']:
+        if _params['asset'] is not None:
             _path_params['asset'] = _params['asset']
 
 
@@ -1830,7 +1831,7 @@ class AssetsApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -1859,9 +1860,9 @@ class AssetsApi:
 
     @validate_arguments
     def assets_stream_identifiers(self, **kwargs) -> StreamedIdentifiers:  # noqa: E501
-        """/assets/stream/identifiers [GET]  # noqa: E501
+        """/assets/stream/identifiers [WS]  # noqa: E501
 
-        This will stream the asset identifiers(uuids) that have changed via a websocket connection.  # noqa: E501
+        Provides a WebSocket connection that emits changes to your asset's identifiers (UUIDs).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1887,9 +1888,9 @@ class AssetsApi:
 
     @validate_arguments
     def assets_stream_identifiers_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """/assets/stream/identifiers [GET]  # noqa: E501
+        """/assets/stream/identifiers [WS]  # noqa: E501
 
-        This will stream the asset identifiers(uuids) that have changed via a websocket connection.  # noqa: E501
+        Provides a WebSocket connection that emits changes to your asset's identifiers (UUIDs).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1991,9 +1992,9 @@ class AssetsApi:
 
     @validate_arguments
     def get_assets_stream_transferables(self, **kwargs) -> Assets:  # noqa: E501
-        """Your GET endpoint  # noqa: E501
+        """/assets/stream/transferables [WS]  # noqa: E501
 
-        This will emit changes of your assets with your transferables included. This is a websocket connection.  # noqa: E501
+        Provides a WebSocket connection that emits changes to your assets, including their transferable.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -2019,9 +2020,9 @@ class AssetsApi:
 
     @validate_arguments
     def get_assets_stream_transferables_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """Your GET endpoint  # noqa: E501
+        """/assets/stream/transferables [WS]  # noqa: E501
 
-        This will emit changes of your assets with your transferables included. This is a websocket connection.  # noqa: E501
+        Provides a WebSocket connection that emits changes to your assets, including their transferable.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -2123,9 +2124,9 @@ class AssetsApi:
 
     @validate_arguments
     def stream_assets(self, **kwargs) -> Assets:  # noqa: E501
-        """/assets/stream [GET]  # noqa: E501
+        """/assets/stream [WS]  # noqa: E501
 
-        *** IMPORTANT this stream will emit changes WITHOUT the transferables on a format. if you want transferables included please refer to /assets/stream/transferables  # noqa: E501
+        Provides a WebSocket connection that emits changes to your assets.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -2151,9 +2152,9 @@ class AssetsApi:
 
     @validate_arguments
     def stream_assets_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """/assets/stream [GET]  # noqa: E501
+        """/assets/stream [WS]  # noqa: E501
 
-        *** IMPORTANT this stream will emit changes WITHOUT the transferables on a format. if you want transferables included please refer to /assets/stream/transferables  # noqa: E501
+        Provides a WebSocket connection that emits changes to your assets.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -2238,6 +2239,139 @@ class AssetsApi:
 
         return self.api_client.call_api(
             '/assets/stream', 'GET',
+            _path_params,
+            _query_params,
+            _header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            response_types_map=_response_types_map,
+            auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
+            collection_formats=_collection_formats,
+            _request_auth=_params.get('_request_auth'))
+
+    @validate_arguments
+    def workstream_suggestions_stream(self, **kwargs) -> WorkstreamSuggestions:  # noqa: E501
+        """/workstream/suggestions/stream [WS]  # noqa: E501
+
+        Provides a WebSocket connection that emits changes to your workstream suggestions.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.workstream_suggestions_stream(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: WorkstreamSuggestions
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the workstream_suggestions_stream_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.workstream_suggestions_stream_with_http_info(**kwargs)  # noqa: E501
+
+    @validate_arguments
+    def workstream_suggestions_stream_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+        """/workstream/suggestions/stream [WS]  # noqa: E501
+
+        Provides a WebSocket connection that emits changes to your workstream suggestions.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.workstream_suggestions_stream_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(WorkstreamSuggestions, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        _params = locals()
+
+        _all_params = [
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
+            ]
+        )
+
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method workstream_suggestions_stream" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
+
+        _collection_formats = {}
+
+        # process the path parameters
+        _path_params = {}
+
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json', 'text/plain'])  # noqa: E501
+
+        # authentication setting
+        _auth_settings = []  # noqa: E501
+
+        _response_types_map = {
+            '200': "WorkstreamSuggestions",
+            '500': "str",
+        }
+
+        return self.api_client.call_api(
+            '/workstream/suggestions/stream', 'GET',
             _path_params,
             _query_params,
             _header_params,
