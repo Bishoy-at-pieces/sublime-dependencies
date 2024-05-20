@@ -54,8 +54,12 @@ class ExportedDatabase(BaseModel):
     anchor_points: Optional[conlist(StrictInt)] = Field(None, alias="anchorPoints")
     conversations: Optional[conlist(StrictInt)] = None
     conversation_messages: Optional[conlist(StrictInt)] = Field(None, alias="conversationMessages")
+    workstream_events: Optional[conlist(StrictInt)] = Field(None, alias="workstreamEvents")
+    ranges: Optional[conlist(StrictInt)] = None
+    workstream_summaries: Optional[conlist(StrictInt)] = Field(None, alias="workstreamSummaries")
     message_values: Optional[ExportedDatabaseFormats] = Field(None, alias="messageValues")
-    __properties = ["analyses", "applications", "assets", "codeAnalyses", "files", "formatMetrics", "formats", "fragments", "imageAnalyses", "models", "ocrAnalyses", "persons", "sensitives", "tags", "websites", "values", "version", "schema", "relationships", "activities", "annotations", "hints", "anchors", "anchorPoints", "conversations", "conversationMessages", "messageValues"]
+    workstream_event_values: Optional[ExportedDatabaseFormats] = Field(None, alias="workstreamEventValues")
+    __properties = ["analyses", "applications", "assets", "codeAnalyses", "files", "formatMetrics", "formats", "fragments", "imageAnalyses", "models", "ocrAnalyses", "persons", "sensitives", "tags", "websites", "values", "version", "schema", "relationships", "activities", "annotations", "hints", "anchors", "anchorPoints", "conversations", "conversationMessages", "workstreamEvents", "ranges", "workstreamSummaries", "messageValues", "workstreamEventValues"]
 
     class Config:
         """Pydantic configuration"""
@@ -90,6 +94,9 @@ class ExportedDatabase(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of message_values
         if self.message_values:
             _dict['messageValues'] = self.message_values.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of workstream_event_values
+        if self.workstream_event_values:
+            _dict['workstreamEventValues'] = self.workstream_event_values.to_dict()
         return _dict
 
     @classmethod
@@ -128,7 +135,11 @@ class ExportedDatabase(BaseModel):
             "anchor_points": obj.get("anchorPoints"),
             "conversations": obj.get("conversations"),
             "conversation_messages": obj.get("conversationMessages"),
-            "message_values": ExportedDatabaseFormats.from_dict(obj.get("messageValues")) if obj.get("messageValues") is not None else None
+            "workstream_events": obj.get("workstreamEvents"),
+            "ranges": obj.get("ranges"),
+            "workstream_summaries": obj.get("workstreamSummaries"),
+            "message_values": ExportedDatabaseFormats.from_dict(obj.get("messageValues")) if obj.get("messageValues") is not None else None,
+            "workstream_event_values": ExportedDatabaseFormats.from_dict(obj.get("workstreamEventValues")) if obj.get("workstreamEventValues") is not None else None
         })
         return _obj
 

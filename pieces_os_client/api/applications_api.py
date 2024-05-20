@@ -26,6 +26,7 @@ from typing import Optional
 
 from pieces_os_client.models.application import Application
 from pieces_os_client.models.applications import Applications
+from pieces_os_client.models.detected_external_applications import DetectedExternalApplications
 from pieces_os_client.models.seeded_tracked_interaction_event import SeededTrackedInteractionEvent
 from pieces_os_client.models.seeded_tracked_keyboard_event import SeededTrackedKeyboardEvent
 from pieces_os_client.models.session import Session
@@ -55,10 +56,276 @@ class ApplicationsApi:
         self.api_client = api_client
 
     @validate_arguments
-    def applications_register(self, application : Annotated[Optional[Application], Field(description="This will accept a application.")] = None, **kwargs) -> Application:  # noqa: E501
-        """/applications/register [POST]  # noqa: E501
+    def applications_external_related(self, **kwargs) -> DetectedExternalApplications:  # noqa: E501
+        """/applications/external/related [GET]  # noqa: E501
 
-        This will register a connected applicaiton.  # noqa: E501
+        Retrieves a list of external applications installed on the user's machine that have potential integrations with Pieces, including those not yet installed by the user and those anticipated to be supported in the future.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.applications_external_related(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: DetectedExternalApplications
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the applications_external_related_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.applications_external_related_with_http_info(**kwargs)  # noqa: E501
+
+    @validate_arguments
+    def applications_external_related_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+        """/applications/external/related [GET]  # noqa: E501
+
+        Retrieves a list of external applications installed on the user's machine that have potential integrations with Pieces, including those not yet installed by the user and those anticipated to be supported in the future.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.applications_external_related_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(DetectedExternalApplications, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        _params = locals()
+
+        _all_params = [
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
+            ]
+        )
+
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method applications_external_related" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
+
+        _collection_formats = {}
+
+        # process the path parameters
+        _path_params = {}
+
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json', 'text/plain'])  # noqa: E501
+
+        # authentication setting
+        _auth_settings = []  # noqa: E501
+
+        _response_types_map = {
+            '200': "DetectedExternalApplications",
+            '500': "str",
+        }
+
+        return self.api_client.call_api(
+            '/applications/external/related', 'GET',
+            _path_params,
+            _query_params,
+            _header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            response_types_map=_response_types_map,
+            auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
+            collection_formats=_collection_formats,
+            _request_auth=_params.get('_request_auth'))
+
+    @validate_arguments
+    def applications_external_snapshot(self, **kwargs) -> DetectedExternalApplications:  # noqa: E501
+        """/applications/external [GET]  # noqa: E501
+
+        Provides a snapshot of all external applications detected on the user's machine, such as Microsoft Teams classic, Google Chat, Obsidian, etc.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.applications_external_snapshot(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: DetectedExternalApplications
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the applications_external_snapshot_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.applications_external_snapshot_with_http_info(**kwargs)  # noqa: E501
+
+    @validate_arguments
+    def applications_external_snapshot_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+        """/applications/external [GET]  # noqa: E501
+
+        Provides a snapshot of all external applications detected on the user's machine, such as Microsoft Teams classic, Google Chat, Obsidian, etc.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.applications_external_snapshot_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(DetectedExternalApplications, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        _params = locals()
+
+        _all_params = [
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
+            ]
+        )
+
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method applications_external_snapshot" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
+
+        _collection_formats = {}
+
+        # process the path parameters
+        _path_params = {}
+
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json', 'text/plain'])  # noqa: E501
+
+        # authentication setting
+        _auth_settings = []  # noqa: E501
+
+        _response_types_map = {
+            '200': "DetectedExternalApplications",
+            '500': "str",
+        }
+
+        return self.api_client.call_api(
+            '/applications/external', 'GET',
+            _path_params,
+            _query_params,
+            _header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            response_types_map=_response_types_map,
+            auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
+            collection_formats=_collection_formats,
+            _request_auth=_params.get('_request_auth'))
+
+    @validate_arguments
+    def applications_register(self, application : Annotated[Optional[Application], Field(description="This will accept a application.")] = None, **kwargs) -> Application:  # noqa: E501
+        """(Deprecated) /applications/register [POST]  # noqa: E501
+
+        Registers a new application within the Pieces ecosystem.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -86,9 +353,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_register_with_http_info(self, application : Annotated[Optional[Application], Field(description="This will accept a application.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/register [POST]  # noqa: E501
+        """(Deprecated) /applications/register [POST]  # noqa: E501
 
-        This will register a connected applicaiton.  # noqa: E501
+        Registers a new application within the Pieces ecosystem.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -121,6 +388,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: tuple(Application, status_code(int), headers(HTTPHeaderDict))
         """
+
+        warnings.warn("POST /applications/register is deprecated.", DeprecationWarning)
 
         _params = locals()
 
@@ -203,9 +472,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_session_close(self, body : Annotated[Optional[constr(strict=True, max_length=36, min_length=36)], Field(description="This will accept a required session uuid.")] = None, **kwargs) -> Session:  # noqa: E501
-        """/applications/session/close [POST]  # noqa: E501
+        """(Deprecated) /applications/session/close [POST]  # noqa: E501
 
-        This will close your opened session! Going to want to accept a session uuid here.  # noqa: E501
+        Closes an active session, identified by a session UUID, marking the end of the user's current interaction with the Pieces application.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -233,9 +502,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_session_close_with_http_info(self, body : Annotated[Optional[constr(strict=True, max_length=36, min_length=36)], Field(description="This will accept a required session uuid.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/session/close [POST]  # noqa: E501
+        """(Deprecated) /applications/session/close [POST]  # noqa: E501
 
-        This will close your opened session! Going to want to accept a session uuid here.  # noqa: E501
+        Closes an active session, identified by a session UUID, marking the end of the user's current interaction with the Pieces application.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -268,6 +537,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: tuple(Session, status_code(int), headers(HTTPHeaderDict))
         """
+
+        warnings.warn("POST /applications/session/close is deprecated.", DeprecationWarning)
 
         _params = locals()
 
@@ -350,9 +621,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_session_open(self, **kwargs) -> Session:  # noqa: E501
-        """/applications/session/open [POST]  # noqa: E501
+        """(Deprecated) /applications/session/open [POST]  # noqa: E501
 
-        This will open a new session. A session is when someone is using the pieces application.  # noqa: E501
+        Initiates a new session, marking the start of a user's interaction with the Pieces application.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -378,9 +649,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_session_open_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/session/open [POST]  # noqa: E501
+        """(Deprecated) /applications/session/open [POST]  # noqa: E501
 
-        This will open a new session. A session is when someone is using the pieces application.  # noqa: E501
+        Initiates a new session, marking the start of a user's interaction with the Pieces application.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -411,6 +682,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: tuple(Session, status_code(int), headers(HTTPHeaderDict))
         """
+
+        warnings.warn("POST /applications/session/open is deprecated.", DeprecationWarning)
 
         _params = locals()
 
@@ -482,9 +755,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_session_snapshot(self, session : Annotated[StrictStr, Field(..., description="This is a uuid that points to a session.")], **kwargs) -> Session:  # noqa: E501
-        """/applications/sessions/{session} [GET]  # noqa: E501
+        """(Deprecated) /applications/sessions/{session} [GET]  # noqa: E501
 
-        This is an endpoint to get a snapshot of a specific session.  # noqa: E501
+        Fetches detailed information about a specific session, identified by a session UUID, including application usage and engagement data.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -512,9 +785,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_session_snapshot_with_http_info(self, session : Annotated[StrictStr, Field(..., description="This is a uuid that points to a session.")], **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/sessions/{session} [GET]  # noqa: E501
+        """(Deprecated) /applications/sessions/{session} [GET]  # noqa: E501
 
-        This is an endpoint to get a snapshot of a specific session.  # noqa: E501
+        Fetches detailed information about a specific session, identified by a session UUID, including application usage and engagement data.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -548,6 +821,8 @@ class ApplicationsApi:
         :rtype: tuple(Session, status_code(int), headers(HTTPHeaderDict))
         """
 
+        warnings.warn("GET /applications/sessions/{session} is deprecated.", DeprecationWarning)
+
         _params = locals()
 
         _all_params = [
@@ -579,7 +854,7 @@ class ApplicationsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['session']:
+        if _params['session'] is not None:
             _path_params['session'] = _params['session']
 
 
@@ -624,7 +899,7 @@ class ApplicationsApi:
     def applications_snapshot(self, **kwargs) -> Applications:  # noqa: E501
         """/applications [GET]  # noqa: E501
 
-          # noqa: E501
+        Retrieves a comprehensive overview of all applications tracked by the Pieces system, including status, version, and engagement metrics.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -652,7 +927,7 @@ class ApplicationsApi:
     def applications_snapshot_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """/applications [GET]  # noqa: E501
 
-          # noqa: E501
+        Retrieves a comprehensive overview of all applications tracked by the Pieces system, including status, version, and engagement metrics.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -756,7 +1031,7 @@ class ApplicationsApi:
     def applications_specific_application_snapshot(self, application : Annotated[StrictStr, Field(..., description="This is a uuid that represents an application")], **kwargs) -> Application:  # noqa: E501
         """/applications/{application} [GET]  # noqa: E501
 
-        This will retrieve snapshot of a single application.  # noqa: E501
+        Obtains a snapshot with information about a specific application, identified by its UUID.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -786,7 +1061,7 @@ class ApplicationsApi:
     def applications_specific_application_snapshot_with_http_info(self, application : Annotated[StrictStr, Field(..., description="This is a uuid that represents an application")], **kwargs) -> ApiResponse:  # noqa: E501
         """/applications/{application} [GET]  # noqa: E501
 
-        This will retrieve snapshot of a single application.  # noqa: E501
+        Obtains a snapshot with information about a specific application, identified by its UUID.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -851,7 +1126,7 @@ class ApplicationsApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['application']:
+        if _params['application'] is not None:
             _path_params['application'] = _params['application']
 
 
@@ -894,9 +1169,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_usage_engagement_interaction(self, seeded_tracked_interaction_event : Optional[SeededTrackedInteractionEvent] = None, **kwargs) -> TrackedInteractionEvent:  # noqa: E501
-        """/applications/usage/engagement/interaction [POST] Scoped to Apps  # noqa: E501
+        """(Deprecated) /applications/usage/engagement/interaction [POST] Scoped to Apps  # noqa: E501
 
-        This is an analytics endpoint that will enable us to know when a user engages something via an interaction(ie click/tap).  # noqa: E501
+        Records user interaction events within applications, such as clicks or taps, to analyze engagement patterns and user behavior.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -924,9 +1199,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_usage_engagement_interaction_with_http_info(self, seeded_tracked_interaction_event : Optional[SeededTrackedInteractionEvent] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/usage/engagement/interaction [POST] Scoped to Apps  # noqa: E501
+        """(Deprecated) /applications/usage/engagement/interaction [POST] Scoped to Apps  # noqa: E501
 
-        This is an analytics endpoint that will enable us to know when a user engages something via an interaction(ie click/tap).  # noqa: E501
+        Records user interaction events within applications, such as clicks or taps, to analyze engagement patterns and user behavior.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -959,6 +1234,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: tuple(TrackedInteractionEvent, status_code(int), headers(HTTPHeaderDict))
         """
+
+        warnings.warn("POST /applications/usage/engagement/interaction is deprecated.", DeprecationWarning)
 
         _params = locals()
 
@@ -1041,9 +1318,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_usage_engagement_keyboard(self, seeded_tracked_keyboard_event : Optional[SeededTrackedKeyboardEvent] = None, **kwargs) -> TrackedKeyboardEvent:  # noqa: E501
-        """/applications/usage/engagement/keyboard [POST] Scoped to Apps  # noqa: E501
+        """(Deprecated) /applications/usage/engagement/keyboard [POST] Scoped to Apps  # noqa: E501
 
-        This is an analytics endpoint that will enable us to know when a user uses a keyboard short cut for any sort of engagement.  # noqa: E501
+        Captures keyboard interaction events, including shortcuts, within applications to monitor user engagement and productivity enhancements.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1071,9 +1348,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_usage_engagement_keyboard_with_http_info(self, seeded_tracked_keyboard_event : Optional[SeededTrackedKeyboardEvent] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/usage/engagement/keyboard [POST] Scoped to Apps  # noqa: E501
+        """(Deprecated) /applications/usage/engagement/keyboard [POST] Scoped to Apps  # noqa: E501
 
-        This is an analytics endpoint that will enable us to know when a user uses a keyboard short cut for any sort of engagement.  # noqa: E501
+        Captures keyboard interaction events, including shortcuts, within applications to monitor user engagement and productivity enhancements.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1106,6 +1383,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: tuple(TrackedKeyboardEvent, status_code(int), headers(HTTPHeaderDict))
         """
+
+        warnings.warn("POST /applications/usage/engagement/keyboard is deprecated.", DeprecationWarning)
 
         _params = locals()
 
@@ -1188,9 +1467,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_usage_installation(self, tracked_application_install : Optional[TrackedApplicationInstall] = None, **kwargs) -> None:  # noqa: E501
-        """/applications/usage/installation [POST]  # noqa: E501
+        """(Deprecated) /applications/usage/installation [POST]  # noqa: E501
 
-        This is an analytics endpoint that will enable us to know when a user has installed a version of Pieces  # noqa: E501
+        Logs the installation events of the Pieces application.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1218,9 +1497,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def applications_usage_installation_with_http_info(self, tracked_application_install : Optional[TrackedApplicationInstall] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/usage/installation [POST]  # noqa: E501
+        """(Deprecated) /applications/usage/installation [POST]  # noqa: E501
 
-        This is an analytics endpoint that will enable us to know when a user has installed a version of Pieces  # noqa: E501
+        Logs the installation events of the Pieces application.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1253,6 +1532,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: None
         """
+
+        warnings.warn("POST /applications/usage/installation is deprecated.", DeprecationWarning)
 
         _params = locals()
 
@@ -1329,9 +1610,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def post_applications_usage_updated(self, tracked_application_update : Annotated[Optional[TrackedApplicationUpdate], Field(description="Sending over the previous application version, the current version, and the user.")] = None, **kwargs) -> None:  # noqa: E501
-        """/applications/usage/updated [POST]  # noqa: E501
+        """(Deprecated) /applications/usage/updated [POST]  # noqa: E501
 
-        This is an endpoint to determine when an application has been updated   # noqa: E501
+        Tracks updates to the Pieces application, including version changes.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1359,9 +1640,9 @@ class ApplicationsApi:
 
     @validate_arguments
     def post_applications_usage_updated_with_http_info(self, tracked_application_update : Annotated[Optional[TrackedApplicationUpdate], Field(description="Sending over the previous application version, the current version, and the user.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """/applications/usage/updated [POST]  # noqa: E501
+        """(Deprecated) /applications/usage/updated [POST]  # noqa: E501
 
-        This is an endpoint to determine when an application has been updated   # noqa: E501
+        Tracks updates to the Pieces application, including version changes.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -1394,6 +1675,8 @@ class ApplicationsApi:
                  returns the request thread.
         :rtype: None
         """
+
+        warnings.warn("POST /applications/usage/updated is deprecated.", DeprecationWarning)
 
         _params = locals()
 

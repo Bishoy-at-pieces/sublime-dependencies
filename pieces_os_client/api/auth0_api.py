@@ -555,25 +555,25 @@ class Auth0Api:
         # process the form parameters
         _form_params = []
         _files = {}
-        if _params['var_schema']:
+        if _params['var_schema'] is not None:
             _form_params.append(('schema', _params['var_schema']))
 
-        if _params['grant_type']:
+        if _params['grant_type'] is not None:
             _form_params.append(('grant_type', _params['grant_type']))
 
-        if _params['client_id']:
+        if _params['client_id'] is not None:
             _form_params.append(('client_id', _params['client_id']))
 
-        if _params['code']:
+        if _params['code'] is not None:
             _form_params.append(('code', _params['code']))
 
-        if _params['redirect_uri']:
+        if _params['redirect_uri'] is not None:
             _form_params.append(('redirect_uri', _params['redirect_uri']))
 
-        if _params['code_verifier']:
+        if _params['code_verifier'] is not None:
             _form_params.append(('code_verifier', _params['code_verifier']))
 
-        if _params['audience']:
+        if _params['audience'] is not None:
             _form_params.append(('audience', _params['audience']))
 
         # process the body parameter

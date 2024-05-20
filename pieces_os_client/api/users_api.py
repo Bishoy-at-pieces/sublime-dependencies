@@ -294,7 +294,7 @@ class UsersApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['user']:
+        if _params['user'] is not None:
             _path_params['user'] = _params['user']
 
 
@@ -566,7 +566,7 @@ class UsersApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['user']:
+        if _params['user'] is not None:
             _path_params['user'] = _params['user']
 
 

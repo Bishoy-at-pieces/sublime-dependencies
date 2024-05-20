@@ -22,6 +22,7 @@ import json
 from typing import Optional
 from pydantic import BaseModel, Field, StrictBool
 from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
+from pieces_os_client.models.qgpt_prompt_pipeline import QGPTPromptPipeline
 
 class QGPTRelevanceInputOptions(BaseModel):
     """
@@ -30,7 +31,8 @@ class QGPTRelevanceInputOptions(BaseModel):
     var_schema: Optional[EmbeddedModelSchema] = Field(None, alias="schema")
     database: Optional[StrictBool] = Field(None, description="This is an optional boolen that will tell us to use our entire snippet database as the sample.")
     question: Optional[StrictBool] = Field(None, description="This is an optional boolean, that will let the serve know if you want to combine the 2 endpointsboth relevance && the Question endpoint to return the final results.")
-    __properties = ["schema", "database", "question"]
+    pipeline: Optional[QGPTPromptPipeline] = None
+    __properties = ["schema", "database", "question", "pipeline"]
 
     class Config:
         """Pydantic configuration"""
@@ -59,6 +61,9 @@ class QGPTRelevanceInputOptions(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of var_schema
         if self.var_schema:
             _dict['schema'] = self.var_schema.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pipeline
+        if self.pipeline:
+            _dict['pipeline'] = self.pipeline.to_dict()
         return _dict
 
     @classmethod
@@ -73,7 +78,8 @@ class QGPTRelevanceInputOptions(BaseModel):
         _obj = QGPTRelevanceInputOptions.parse_obj({
             "var_schema": EmbeddedModelSchema.from_dict(obj.get("schema")) if obj.get("schema") is not None else None,
             "database": obj.get("database"),
-            "question": obj.get("question")
+            "question": obj.get("question"),
+            "pipeline": QGPTPromptPipeline.from_dict(obj.get("pipeline")) if obj.get("pipeline") is not None else None
         })
         return _obj
 

@@ -53,7 +53,13 @@ class SeededScoreIncrement(BaseModel):
     persons: Optional[SeededScore] = None
     tag: Optional[SeededScore] = None
     tags: Optional[SeededScore] = None
-    __properties = ["schema", "asset", "assets", "website", "websites", "anchor", "anchors", "anchorPoint", "anchorPoints", "annotation", "annotations", "conversation", "conversations", "conversationMessage", "conversationMessages", "share", "shares", "sensitive", "sensitives", "hint", "hints", "person", "persons", "tag", "tags"]
+    workstream_summary: Optional[SeededScore] = None
+    workstream_summaries: Optional[SeededScore] = None
+    workstream_events: Optional[SeededScore] = None
+    workstream_event: Optional[SeededScore] = None
+    ranges: Optional[SeededScore] = None
+    range: Optional[SeededScore] = None
+    __properties = ["schema", "asset", "assets", "website", "websites", "anchor", "anchors", "anchorPoint", "anchorPoints", "annotation", "annotations", "conversation", "conversations", "conversationMessage", "conversationMessages", "share", "shares", "sensitive", "sensitives", "hint", "hints", "person", "persons", "tag", "tags", "workstream_summary", "workstream_summaries", "workstream_events", "workstream_event", "ranges", "range"]
 
     class Config:
         """Pydantic configuration"""
@@ -154,6 +160,24 @@ class SeededScoreIncrement(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of tags
         if self.tags:
             _dict['tags'] = self.tags.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of workstream_summary
+        if self.workstream_summary:
+            _dict['workstream_summary'] = self.workstream_summary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of workstream_summaries
+        if self.workstream_summaries:
+            _dict['workstream_summaries'] = self.workstream_summaries.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of workstream_events
+        if self.workstream_events:
+            _dict['workstream_events'] = self.workstream_events.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of workstream_event
+        if self.workstream_event:
+            _dict['workstream_event'] = self.workstream_event.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of ranges
+        if self.ranges:
+            _dict['ranges'] = self.ranges.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of range
+        if self.range:
+            _dict['range'] = self.range.to_dict()
         return _dict
 
     @classmethod
@@ -190,7 +214,13 @@ class SeededScoreIncrement(BaseModel):
             "person": SeededScore.from_dict(obj.get("person")) if obj.get("person") is not None else None,
             "persons": SeededScore.from_dict(obj.get("persons")) if obj.get("persons") is not None else None,
             "tag": SeededScore.from_dict(obj.get("tag")) if obj.get("tag") is not None else None,
-            "tags": SeededScore.from_dict(obj.get("tags")) if obj.get("tags") is not None else None
+            "tags": SeededScore.from_dict(obj.get("tags")) if obj.get("tags") is not None else None,
+            "workstream_summary": SeededScore.from_dict(obj.get("workstream_summary")) if obj.get("workstream_summary") is not None else None,
+            "workstream_summaries": SeededScore.from_dict(obj.get("workstream_summaries")) if obj.get("workstream_summaries") is not None else None,
+            "workstream_events": SeededScore.from_dict(obj.get("workstream_events")) if obj.get("workstream_events") is not None else None,
+            "workstream_event": SeededScore.from_dict(obj.get("workstream_event")) if obj.get("workstream_event") is not None else None,
+            "ranges": SeededScore.from_dict(obj.get("ranges")) if obj.get("ranges") is not None else None,
+            "range": SeededScore.from_dict(obj.get("range")) if obj.get("range") is not None else None
         })
         return _obj
 

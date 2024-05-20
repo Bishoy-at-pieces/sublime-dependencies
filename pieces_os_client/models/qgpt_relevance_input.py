@@ -26,6 +26,7 @@ from pieces_os_client.models.flattened_assets import FlattenedAssets
 from pieces_os_client.models.flattened_conversation_messages import FlattenedConversationMessages
 from pieces_os_client.models.qgpt_relevance_input_options import QGPTRelevanceInputOptions
 from pieces_os_client.models.seeds import Seeds
+from pieces_os_client.models.temporal_range_grounding import TemporalRangeGrounding
 
 class QGPTRelevanceInput(BaseModel):
     """
@@ -40,7 +41,8 @@ class QGPTRelevanceInput(BaseModel):
     options: Optional[QGPTRelevanceInputOptions] = None
     application: Optional[StrictStr] = Field(None, description="optional application id")
     model: Optional[StrictStr] = Field(None, description="optional model id")
-    __properties = ["schema", "query", "paths", "seeds", "assets", "messages", "options", "application", "model"]
+    temporal: Optional[TemporalRangeGrounding] = None
+    __properties = ["schema", "query", "paths", "seeds", "assets", "messages", "options", "application", "model", "temporal"]
 
     class Config:
         """Pydantic configuration"""
@@ -81,6 +83,9 @@ class QGPTRelevanceInput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of options
         if self.options:
             _dict['options'] = self.options.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of temporal
+        if self.temporal:
+            _dict['temporal'] = self.temporal.to_dict()
         return _dict
 
     @classmethod
@@ -101,7 +106,8 @@ class QGPTRelevanceInput(BaseModel):
             "messages": FlattenedConversationMessages.from_dict(obj.get("messages")) if obj.get("messages") is not None else None,
             "options": QGPTRelevanceInputOptions.from_dict(obj.get("options")) if obj.get("options") is not None else None,
             "application": obj.get("application"),
-            "model": obj.get("model")
+            "model": obj.get("model"),
+            "temporal": TemporalRangeGrounding.from_dict(obj.get("temporal")) if obj.get("temporal") is not None else None
         })
         return _obj
 

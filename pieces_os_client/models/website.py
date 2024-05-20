@@ -25,6 +25,7 @@ from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
 from pieces_os_client.models.flattened_assets import FlattenedAssets
 from pieces_os_client.models.flattened_conversations import FlattenedConversations
 from pieces_os_client.models.flattened_persons import FlattenedPersons
+from pieces_os_client.models.flattened_workstream_summaries import FlattenedWorkstreamSummaries
 from pieces_os_client.models.grouped_timestamp import GroupedTimestamp
 from pieces_os_client.models.mechanism_enum import MechanismEnum
 from pieces_os_client.models.score import Score
@@ -46,7 +47,8 @@ class Website(BaseModel):
     persons: Optional[FlattenedPersons] = None
     conversations: Optional[FlattenedConversations] = None
     score: Optional[Score] = None
-    __properties = ["schema", "id", "assets", "url", "name", "created", "updated", "deleted", "mechanisms", "interactions", "persons", "conversations", "score"]
+    summaries: Optional[FlattenedWorkstreamSummaries] = None
+    __properties = ["schema", "id", "assets", "url", "name", "created", "updated", "deleted", "mechanisms", "interactions", "persons", "conversations", "score", "summaries"]
 
     class Config:
         """Pydantic configuration"""
@@ -96,6 +98,9 @@ class Website(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of score
         if self.score:
             _dict['score'] = self.score.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of summaries
+        if self.summaries:
+            _dict['summaries'] = self.summaries.to_dict()
         return _dict
 
     @classmethod
@@ -120,7 +125,8 @@ class Website(BaseModel):
             "interactions": obj.get("interactions"),
             "persons": FlattenedPersons.from_dict(obj.get("persons")) if obj.get("persons") is not None else None,
             "conversations": FlattenedConversations.from_dict(obj.get("conversations")) if obj.get("conversations") is not None else None,
-            "score": Score.from_dict(obj.get("score")) if obj.get("score") is not None else None
+            "score": Score.from_dict(obj.get("score")) if obj.get("score") is not None else None,
+            "summaries": FlattenedWorkstreamSummaries.from_dict(obj.get("summaries")) if obj.get("summaries") is not None else None
         })
         return _obj
 

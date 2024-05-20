@@ -23,7 +23,6 @@ from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 from pieces_os_client.models.annotation_type_enum import AnnotationTypeEnum
 from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
-from pieces_os_client.models.flattened_conversation_messages import FlattenedConversationMessages
 from pieces_os_client.models.mechanism_enum import MechanismEnum
 
 class SeededAnnotation(BaseModel):
@@ -101,4 +100,6 @@ class SeededAnnotation(BaseModel):
         })
         return _obj
 
+from pieces_os_client.models.flattened_conversation_messages import FlattenedConversationMessages
+SeededAnnotation.update_forward_refs()
 

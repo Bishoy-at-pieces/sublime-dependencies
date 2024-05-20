@@ -31,6 +31,7 @@ from pieces_os_client.models.referenced_asset import ReferencedAsset
 from pieces_os_client.models.referenced_conversation import ReferencedConversation
 from pieces_os_client.models.referenced_model import ReferencedModel
 from pieces_os_client.models.referenced_person import ReferencedPerson
+from pieces_os_client.models.referenced_workstream_summary import ReferencedWorkstreamSummary
 from pieces_os_client.models.score import Score
 
 class Annotation(BaseModel):
@@ -54,7 +55,8 @@ class Annotation(BaseModel):
     conversation: Optional[ReferencedConversation] = None
     score: Optional[Score] = None
     messages: Optional[FlattenedConversationMessages] = None
-    __properties = ["schema", "id", "created", "updated", "deleted", "mechanism", "asset", "person", "type", "text", "model", "pseudo", "favorited", "anchor", "conversation", "score", "messages"]
+    summary: Optional[ReferencedWorkstreamSummary] = None
+    __properties = ["schema", "id", "created", "updated", "deleted", "mechanism", "asset", "person", "type", "text", "model", "pseudo", "favorited", "anchor", "conversation", "score", "messages", "summary"]
 
     class Config:
         """Pydantic configuration"""
@@ -113,6 +115,9 @@ class Annotation(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of messages
         if self.messages:
             _dict['messages'] = self.messages.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of summary
+        if self.summary:
+            _dict['summary'] = self.summary.to_dict()
         return _dict
 
     @classmethod
@@ -141,7 +146,8 @@ class Annotation(BaseModel):
             "anchor": ReferencedAnchor.from_dict(obj.get("anchor")) if obj.get("anchor") is not None else None,
             "conversation": ReferencedConversation.from_dict(obj.get("conversation")) if obj.get("conversation") is not None else None,
             "score": Score.from_dict(obj.get("score")) if obj.get("score") is not None else None,
-            "messages": FlattenedConversationMessages.from_dict(obj.get("messages")) if obj.get("messages") is not None else None
+            "messages": FlattenedConversationMessages.from_dict(obj.get("messages")) if obj.get("messages") is not None else None,
+            "summary": ReferencedWorkstreamSummary.from_dict(obj.get("summary")) if obj.get("summary") is not None else None
         })
         return _obj
 

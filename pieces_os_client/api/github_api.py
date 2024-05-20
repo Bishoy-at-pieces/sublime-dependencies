@@ -51,7 +51,7 @@ class GithubApi:
     def import_github_gists(self, automatic : Annotated[Optional[StrictBool], Field(description="For most cases set to true. If this is set to true we will handle the behavior automically or else we will not proactively handle specific behavior but we will let the developer decide the behavior.")] = None, seeded_github_gists_import : Optional[SeededGithubGistsImport] = None, **kwargs) -> Seeds:  # noqa: E501
         """/github/gists/import [POST]  # noqa: E501
 
-        This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users' gists. <- implemented. v2. can get specific a public gist.  # noqa: E501
+        This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users' gists. implemented. v2. can get specific a public gist.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -83,7 +83,7 @@ class GithubApi:
     def import_github_gists_with_http_info(self, automatic : Annotated[Optional[StrictBool], Field(description="For most cases set to true. If this is set to true we will handle the behavior automically or else we will not proactively handle specific behavior but we will let the developer decide the behavior.")] = None, seeded_github_gists_import : Optional[SeededGithubGistsImport] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """/github/gists/import [POST]  # noqa: E501
 
-        This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users' gists. <- implemented. v2. can get specific a public gist.  # noqa: E501
+        This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users' gists. implemented. v2. can get specific a public gist.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -169,7 +169,7 @@ class GithubApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',

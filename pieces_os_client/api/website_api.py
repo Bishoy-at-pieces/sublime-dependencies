@@ -151,10 +151,10 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['asset']:
+        if _params['asset'] is not None:
             _path_params['asset'] = _params['asset']
 
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
 
@@ -169,7 +169,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -297,10 +297,10 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
-        if _params['conversation']:
+        if _params['conversation'] is not None:
             _path_params['conversation'] = _params['conversation']
 
 
@@ -315,7 +315,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -443,10 +443,10 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
-        if _params['person']:
+        if _params['person'] is not None:
             _path_params['person'] = _params['person']
 
 
@@ -461,7 +461,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -470,6 +470,152 @@ class WebsiteApi:
 
         return self.api_client.call_api(
             '/website/{website}/persons/associate/{person}', 'POST',
+            _path_params,
+            _query_params,
+            _header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            response_types_map=_response_types_map,
+            auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
+            collection_formats=_collection_formats,
+            _request_auth=_params.get('_request_auth'))
+
+    @validate_arguments
+    def website_associate_workstream_summary(self, website : Annotated[StrictStr, Field(..., description="website id")], workstream_summary : Annotated[StrictStr, Field(..., description="This is a identifier that is used to identify a specific workstream_summary.")], **kwargs) -> None:  # noqa: E501
+        """/website/{website}/workstream_summaries/associate/{workstream_summary} [POST]  # noqa: E501
+
+        This will associate a website with a workstream summary. This will do the same thing as the workstreamSummary equivalent.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.website_associate_workstream_summary(website, workstream_summary, async_req=True)
+        >>> result = thread.get()
+
+        :param website: website id (required)
+        :type website: str
+        :param workstream_summary: This is a identifier that is used to identify a specific workstream_summary. (required)
+        :type workstream_summary: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: None
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the website_associate_workstream_summary_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.website_associate_workstream_summary_with_http_info(website, workstream_summary, **kwargs)  # noqa: E501
+
+    @validate_arguments
+    def website_associate_workstream_summary_with_http_info(self, website : Annotated[StrictStr, Field(..., description="website id")], workstream_summary : Annotated[StrictStr, Field(..., description="This is a identifier that is used to identify a specific workstream_summary.")], **kwargs) -> ApiResponse:  # noqa: E501
+        """/website/{website}/workstream_summaries/associate/{workstream_summary} [POST]  # noqa: E501
+
+        This will associate a website with a workstream summary. This will do the same thing as the workstreamSummary equivalent.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.website_associate_workstream_summary_with_http_info(website, workstream_summary, async_req=True)
+        >>> result = thread.get()
+
+        :param website: website id (required)
+        :type website: str
+        :param workstream_summary: This is a identifier that is used to identify a specific workstream_summary. (required)
+        :type workstream_summary: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: None
+        """
+
+        _params = locals()
+
+        _all_params = [
+            'website',
+            'workstream_summary'
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
+            ]
+        )
+
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method website_associate_workstream_summary" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
+
+        _collection_formats = {}
+
+        # process the path parameters
+        _path_params = {}
+        if _params['website'] is not None:
+            _path_params['website'] = _params['website']
+
+        if _params['workstream_summary'] is not None:
+            _path_params['workstream_summary'] = _params['workstream_summary']
+
+
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['text/plain'])  # noqa: E501
+
+        # authentication setting
+        _auth_settings = []  # noqa: E501
+
+        _response_types_map = {}
+
+        return self.api_client.call_api(
+            '/website/{website}/workstream_summaries/associate/{workstream_summary}', 'POST',
             _path_params,
             _query_params,
             _header_params,
@@ -589,10 +735,10 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
-        if _params['asset']:
+        if _params['asset'] is not None:
             _path_params['asset'] = _params['asset']
 
 
@@ -607,7 +753,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -735,10 +881,10 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
-        if _params['conversation']:
+        if _params['conversation'] is not None:
             _path_params['conversation'] = _params['conversation']
 
 
@@ -753,7 +899,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -881,10 +1027,10 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
-        if _params['person']:
+        if _params['person'] is not None:
             _path_params['person'] = _params['person']
 
 
@@ -899,7 +1045,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -908,6 +1054,152 @@ class WebsiteApi:
 
         return self.api_client.call_api(
             '/website/{website}/persons/disassociate/{person}', 'POST',
+            _path_params,
+            _query_params,
+            _header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            response_types_map=_response_types_map,
+            auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
+            collection_formats=_collection_formats,
+            _request_auth=_params.get('_request_auth'))
+
+    @validate_arguments
+    def website_disassociate_workstream_summary(self, website : Annotated[StrictStr, Field(..., description="website id")], workstream_summary : Annotated[StrictStr, Field(..., description="This is a identifier that is used to identify a specific workstream_summary.")], **kwargs) -> None:  # noqa: E501
+        """/website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]  # noqa: E501
+
+        This will enable us to disassociate a website from a workstream summary. This will do the same thing as the workstreamSummary equivalent.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.website_disassociate_workstream_summary(website, workstream_summary, async_req=True)
+        >>> result = thread.get()
+
+        :param website: website id (required)
+        :type website: str
+        :param workstream_summary: This is a identifier that is used to identify a specific workstream_summary. (required)
+        :type workstream_summary: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request.
+               If one number provided, it will be total request
+               timeout. It can also be a pair (tuple) of
+               (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: None
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            message = "Error! Please call the website_disassociate_workstream_summary_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
+            raise ValueError(message)
+        return self.website_disassociate_workstream_summary_with_http_info(website, workstream_summary, **kwargs)  # noqa: E501
+
+    @validate_arguments
+    def website_disassociate_workstream_summary_with_http_info(self, website : Annotated[StrictStr, Field(..., description="website id")], workstream_summary : Annotated[StrictStr, Field(..., description="This is a identifier that is used to identify a specific workstream_summary.")], **kwargs) -> ApiResponse:  # noqa: E501
+        """/website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]  # noqa: E501
+
+        This will enable us to disassociate a website from a workstream summary. This will do the same thing as the workstreamSummary equivalent.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.website_disassociate_workstream_summary_with_http_info(website, workstream_summary, async_req=True)
+        >>> result = thread.get()
+
+        :param website: website id (required)
+        :type website: str
+        :param workstream_summary: This is a identifier that is used to identify a specific workstream_summary. (required)
+        :type workstream_summary: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: None
+        """
+
+        _params = locals()
+
+        _all_params = [
+            'website',
+            'workstream_summary'
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
+            ]
+        )
+
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method website_disassociate_workstream_summary" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
+
+        _collection_formats = {}
+
+        # process the path parameters
+        _path_params = {}
+        if _params['website'] is not None:
+            _path_params['website'] = _params['website']
+
+        if _params['workstream_summary'] is not None:
+            _path_params['workstream_summary'] = _params['workstream_summary']
+
+
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['text/plain'])  # noqa: E501
+
+        # authentication setting
+        _auth_settings = []  # noqa: E501
+
+        _response_types_map = {}
+
+        return self.api_client.call_api(
+            '/website/{website}/workstream_summaries/disassociate/{workstream_summary}', 'POST',
             _path_params,
             _query_params,
             _header_params,
@@ -1027,7 +1319,7 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
 
@@ -1045,7 +1337,7 @@ class WebsiteApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -1198,7 +1490,7 @@ class WebsiteApi:
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # set the HTTP header `Content-Type`
         _content_types_list = _params.get('_content_type',
@@ -1336,7 +1628,7 @@ class WebsiteApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['website']:
+        if _params['website'] is not None:
             _path_params['website'] = _params['website']
 
 
@@ -1354,7 +1646,7 @@ class WebsiteApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json', 'text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501

@@ -40,7 +40,8 @@ class SeededAsset(BaseModel):
     available: Optional[AvailableFormats] = None
     pseudo: Optional[StrictBool] = None
     enrichment: Optional[SeededAssetEnrichment] = None
-    __properties = ["schema", "metadata", "application", "format", "discovered", "available", "pseudo", "enrichment"]
+    demo: Optional[StrictBool] = Field(None, description="This will let us know if this asset was generated as a 'demo' snippet")
+    __properties = ["schema", "metadata", "application", "format", "discovered", "available", "pseudo", "enrichment", "demo"]
 
     class Config:
         """Pydantic configuration"""
@@ -103,7 +104,8 @@ class SeededAsset(BaseModel):
             "discovered": obj.get("discovered"),
             "available": AvailableFormats.from_dict(obj.get("available")) if obj.get("available") is not None else None,
             "pseudo": obj.get("pseudo"),
-            "enrichment": SeededAssetEnrichment.from_dict(obj.get("enrichment")) if obj.get("enrichment") is not None else None
+            "enrichment": SeededAssetEnrichment.from_dict(obj.get("enrichment")) if obj.get("enrichment") is not None else None,
+            "demo": obj.get("demo")
         })
         return _obj
 

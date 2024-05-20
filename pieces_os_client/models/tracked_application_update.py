@@ -21,8 +21,8 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel, Field
+from pieces_os_client.models.application import Application
 from pieces_os_client.models.embedded_model_schema import EmbeddedModelSchema
-from pieces_os_client.models.tracked_application import TrackedApplication
 from pieces_os_client.models.tracked_user_profile import TrackedUserProfile
 
 class TrackedApplicationUpdate(BaseModel):
@@ -30,8 +30,8 @@ class TrackedApplicationUpdate(BaseModel):
     This is a model used to track when an Application is Updated  # noqa: E501
     """
     var_schema: Optional[EmbeddedModelSchema] = Field(None, alias="schema")
-    current: TrackedApplication = Field(...)
-    previous: Optional[TrackedApplication] = None
+    current: Application = Field(...)
+    previous: Optional[Application] = None
     user: Optional[TrackedUserProfile] = None
     __properties = ["schema", "current", "previous", "user"]
 
@@ -84,8 +84,8 @@ class TrackedApplicationUpdate(BaseModel):
 
         _obj = TrackedApplicationUpdate.parse_obj({
             "var_schema": EmbeddedModelSchema.from_dict(obj.get("schema")) if obj.get("schema") is not None else None,
-            "current": TrackedApplication.from_dict(obj.get("current")) if obj.get("current") is not None else None,
-            "previous": TrackedApplication.from_dict(obj.get("previous")) if obj.get("previous") is not None else None,
+            "current": Application.from_dict(obj.get("current")) if obj.get("current") is not None else None,
+            "previous": Application.from_dict(obj.get("previous")) if obj.get("previous") is not None else None,
             "user": TrackedUserProfile.from_dict(obj.get("user")) if obj.get("user") is not None else None
         })
         return _obj

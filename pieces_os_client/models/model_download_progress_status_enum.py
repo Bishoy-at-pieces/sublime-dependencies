@@ -35,6 +35,8 @@ class ModelDownloadProgressStatusEnum(str, Enum):
     COMPLETED = 'COMPLETED'
     FAILED = 'FAILED'
     UNKNOWN = 'UNKNOWN'
+    CANCELED = 'CANCELED'
+    RESET = 'RESET'
 
     @classmethod
     def from_json(cls, json_str: str) -> ModelDownloadProgressStatusEnum:

@@ -302,7 +302,7 @@ class SharesApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['share']:
+        if _params['share'] is not None:
             _path_params['share'] = _params['share']
 
 
@@ -317,7 +317,7 @@ class SharesApi:
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
@@ -587,7 +587,7 @@ class SharesApi:
 
         # process the path parameters
         _path_params = {}
-        if _params['share']:
+        if _params['share'] is not None:
             _path_params['share'] = _params['share']
 
 
